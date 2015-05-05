@@ -1,13 +1,13 @@
-REBAR=$(shell which rebar || echo ./rebar)
+REBAR=$(shell which rebar3 || echo ./rebar3)
 DEPSOLVER_PLT=$(CURDIR)/.depsolver_plt
 
 all: compile
 
-./rebar:
+./rebar3:
 	erl -noshell -s inets start -s ssl start \
-		-eval 'httpc:request(get, {"https://raw.github.com/wiki/rebar/rebar/rebar", []}, [], [{stream, "./rebar"}])' \
+		-eval 'httpc:request(get, {"https://s3.amazonaws.com/rebar3/rebar3", []}, [], [{stream, "./rebar3"}])' \
 		-s inets stop -s init stop
-	chmod +x ./rebar
+	chmod +x ./rebar3
 
 compile: $(REBAR)
 	@$(REBAR) compile
